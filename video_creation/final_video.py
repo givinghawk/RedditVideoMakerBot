@@ -50,6 +50,7 @@ def make_final_video(
     reddit_obj: dict,
     background_config: Tuple[str, str, str, Any],
 ):
+    length = length+15
     """Gathers audio clips, gathers all screenshots, stitches them together and saves the final video to assets/temp
     Args:
         number_of_clips (int): Index to end at when going through the screenshots'
@@ -76,7 +77,8 @@ def make_final_video(
     )
 
     # Gather all audio clips
-    audio_clips = [AudioFileClip(f"assets/temp/{id}/mp3/{i}.mp3") for i in range(number_of_clips)]
+    # audio_clips = [AudioFileClip(f"assets/temp/{id}/mp3/{i}.mp3") for i in range(0,1)]
+    audio_clips = []
     audio_clips.insert(0, AudioFileClip(f"assets/temp/{id}/mp3/title.mp3"))
     audio_concat = concatenate_audioclips(audio_clips)
     audio_composite = CompositeAudioClip([audio_concat])
@@ -90,22 +92,22 @@ def make_final_video(
     image_clips.insert(
         0,
         ImageClip(f"assets/temp/{id}/png/title.png")
-        .set_duration(audio_clips[0].duration)
+        .set_duration(audio_clips[0].duration+10)
         .resize(width=W - 100)
         .set_opacity(new_opacity)
         .crossfadein(new_transition)
         .crossfadeout(new_transition),
     )
 
-    for i in range(0, number_of_clips):
-        image_clips.append(
-            ImageClip(f"assets/temp/{id}/png/comment_{i}.png")
-            .set_duration(audio_clips[i + 1].duration)
-            .resize(width=W - 100)
-            .set_opacity(new_opacity)
-            .crossfadein(new_transition)
-            .crossfadeout(new_transition)
-        )
+    # for i in range(0, number_of_clips):
+    #     image_clips.append(
+    #         ImageClip(f"assets/temp/{id}/png/comment_{i}.png")
+    #         .set_duration(audio_clips[i + 1].duration)
+    #         .resize(width=W - 100)
+    #         .set_opacity(new_opacity)
+    #         .crossfadein(new_transition)
+    #         .crossfadeout(new_transition)
+    #     )
 
     # if os.path.exists("assets/mp3/posttext.mp3"):
     #    image_clips.insert(

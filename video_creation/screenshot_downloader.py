@@ -80,37 +80,37 @@ def download_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: in
             page.locator('[data-click-id="text"]').screenshot(
                 path=f"assets/temp/{id}/png/story_content.png"
             )
-        else:
-            for idx, comment in enumerate(
-                track(reddit_object["comments"], "Downloading screenshots...")
-            ):
-                # Stop if we have reached the screenshot_num
-                if idx >= screenshot_num:
-                    break
-
-                if page.locator('[data-testid="content-gate"]').is_visible():
-                    page.locator('[data-testid="content-gate"] button').click()
-
-                page.goto(f'https://reddit.com{comment["comment_url"]}', timeout=0)
-
-                # translate code
-
-                if settings.config["reddit"]["thread"]["post_lang"]:
-                    comment_tl = ts.google(
-                        comment["comment_body"],
-                        to_language=settings.config["reddit"]["thread"]["post_lang"],
-                    )
-                    page.evaluate(
-                        '([tl_content, tl_id]) => document.querySelector(`#t1_${tl_id} > div:nth-child(2) > div > div[data-testid="comment"] > div`).textContent = tl_content',
-                        [comment_tl, comment["comment_id"]],
-                    )
-                try:
-                    page.locator(f"#t1_{comment['comment_id']}").screenshot(
-                        path=f"assets/temp/{id}/png/comment_{idx}.png"
-                    )
-                except TimeoutError:
-                    del reddit_object["comments"]
-                    screenshot_num += 1
-                    print("TimeoutError: Skipping screenshot...")
-                    continue
+        # else:
+        #     for idx, comment in enumerate(
+        #         track(reddit_object["comments"], "Downloading screenshots...")
+        #     ):
+        #         # Stop if we have reached the screenshot_num
+        #         if idx >= screenshot_num:
+        #             break
+        #
+        #         if page.locator('[data-testid="content-gate"]').is_visible():
+        #             page.locator('[data-testid="content-gate"] button').click()
+        #
+        #         page.goto(f'https://reddit.com{comment["comment_url"]}', timeout=0)
+        #
+        #         # translate code
+        #
+        #         if settings.config["reddit"]["thread"]["post_lang"]:
+        #             comment_tl = ts.google(
+        #                 comment["comment_body"],
+        #                 to_language=settings.config["reddit"]["thread"]["post_lang"],
+        #             )
+        #             page.evaluate(
+        #                 '([tl_content, tl_id]) => document.querySelector(`#t1_${tl_id} > div:nth-child(2) > div > div[data-testid="comment"] > div`).textContent = tl_content',
+        #                 [comment_tl, comment["comment_id"]],
+        #             )
+        #         try:
+        #             page.locator(f"#t1_{comment['comment_id']}").screenshot(
+        #                 path=f"assets/temp/{id}/png/comment_{idx}.png"
+        #             )
+        #         except TimeoutError:
+        #             del reddit_object["comments"]
+        #             screenshot_num += 1
+        #             print("TimeoutError: Skipping screenshot...")
+        #             continue
         print_substep("Screenshots downloaded Successfully.", style="bold green")

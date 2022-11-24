@@ -25,8 +25,8 @@ def get_start_and_end_times(video_length: int, length_of_clip: int) -> Tuple[int
     Returns:
         tuple[int,int]: Start and end time of the randomized interval
     """
-    random_time = randrange(180, int(length_of_clip) - int(video_length))
-    return random_time, random_time + video_length
+    random_time = randrange(180, int(length_of_clip) - int(video_length+10))
+    return random_time, random_time + (video_length+10)
 
 
 def get_background_config():
