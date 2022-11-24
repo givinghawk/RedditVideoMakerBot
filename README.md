@@ -71,7 +71,6 @@ In its current state, this bot does exactly what it needs to do. However, improv
 I have tried to simplify the code so anyone can read it and start contributing at any skill level. Don't be shy :) contribute!
 
 - [ ] Creating better documentation and adding a command line interface.
-- [ ] Allowing the user to choose background music for their videos.
 - [x] Allowing users to choose a reddit thread instead of being randomized.
 - [x] Allowing users to choose a background that is picked instead of the Minecraft one.
 - [x] Allowing users to choose between any subreddit.
@@ -94,4 +93,4 @@ Verq (Verq#2338) - https://github.com/CordlessCoder
 
 LukaHietala (Pix.#0001) - https://github.com/LukaHietala
 
-Freebiell (Freebie#3263) - https://github.com/FreebieII
+Freebiell (Freebie#6429) - https://github.com/FreebieII
