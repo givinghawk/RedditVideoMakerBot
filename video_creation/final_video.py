@@ -79,7 +79,9 @@ def make_final_video(
     audio_clips = [AudioFileClip(f"assets/temp/{id}/mp3/{i}.mp3") for i in range(number_of_clips)]
     audio_clips.insert(0, AudioFileClip(f"assets/temp/{id}/mp3/title.mp3"))
     audio_concat = concatenate_audioclips(audio_clips)
-    audio_composite = CompositeAudioClip([audio_concat])
+    bg_music = [AudioFileClip(f"assets/music/track.mp3").set_duration(length).fx(volumex, 0.03)]
+    audio_concat2 = concatenate_audioclips(bg_music)
+    audio_composite = CompositeAudioClip([audio_concat, audio_concat2])
 
     console.log(f"[bold green] Video Will Be: {length} Seconds Long")
     # add title to video
